@@ -1,5 +1,6 @@
 package serenitylabs.tutorials.seleniumeasy.selenium.forms;
 
+
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
@@ -18,8 +19,10 @@ public class TestingCheckboxes extends WithWebdriverSupport {
     @Test
     public void singleCheckbox() {
         // TODO: Click on the first checkbox and check that a success message is displayed
+        driver.findElement(By.id("isAgeSelected")).click();
 
-        String result = ""; // TODO: Fix me
+        String result = driver.findElement(By.id("txtAge")).getText();
+
         assertThat(result).isEqualTo("Success - Check box is checked");
     }
 
@@ -27,7 +30,8 @@ public class TestingCheckboxes extends WithWebdriverSupport {
     public void multipleCheckboxes() {
         // TODO: Click on all the checkboxes and ensure that the button text is "Uncheck All"
 
-        String result = ""; // TODO: Fix me
-        assertThat(result).isEqualTo("Uncheck All");
+        driver.findElements(By.cssSelector(".cb1-element")).forEach(WebElement::click);
+
+        assertThat(driver.findElement(By.id("check1")).getAttribute("Value")).isEqualTo("Uncheck All");
     }
 }

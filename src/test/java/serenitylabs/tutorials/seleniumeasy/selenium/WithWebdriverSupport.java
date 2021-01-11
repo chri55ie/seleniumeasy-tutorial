@@ -7,9 +7,11 @@ import org.junit.BeforeClass;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 public abstract class WithWebdriverSupport {
@@ -26,7 +28,15 @@ public abstract class WithWebdriverSupport {
 
     @Before
     public void openBrowser() {
-        driver = new ChromeDriver();
+        System.setProperty("webdriver.chrome.driver", "C:/Program Files/chromedriver/chromedriver.exe");
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("-no-sandbox");
+        options.addArguments("-disable-dev-shm-usage");
+        options.addArguments("--headless");
+
+        driver = new ChromeDriver(options);
+
+        driver.manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
     }
 
     @After
